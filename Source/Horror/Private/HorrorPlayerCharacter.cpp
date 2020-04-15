@@ -36,14 +36,17 @@ AHorrorPlayerCharacter::AHorrorPlayerCharacter()
 void AHorrorPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	DefaultFOV = Camera->FieldOfView;
 }
 
 // Called every frame
 void AHorrorPlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	//Zooming
+	float CurrentFOV = bWantsToZoom ? ZoomedFOV : DefaultFOV;
+	float NewFOV = FMath::FInterpTo(Camera->FieldOfView, CurrentFOV, DeltaTime, ZoomInterpSpeed);
+	Camera->SetFieldOfView(NewFOV);
 }
 
 // Called to bind functionality to input
