@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "HorrorPlayerCharacter.h"
+//#include "HorrorPlayerCharacter.h
 #include "Components/InputComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
@@ -10,6 +10,7 @@
 #include "Engine.h"
 #include "Engine/World.h"
 #include "..\Public\HorrorPlayerCharacter.h"
+
 // Sets default values
 AHorrorPlayerCharacter::AHorrorPlayerCharacter()
 {
@@ -135,6 +136,7 @@ void AHorrorPlayerCharacter::StopAttack()
 int AHorrorPlayerCharacter::GetBulletCount() const
 {
 //	return CurrentWeapon->GetCurrentBulletCount();
+	return 0;
 }
 
 void AHorrorPlayerCharacter::Reload()
