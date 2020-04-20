@@ -11,6 +11,7 @@ class UDamageType;
 class UParticleSystem;
 class UCameraShake;
 
+//TODO Set up Blueprint Base for artists and double check to make sure everything works with a gun
 UCLASS()
 class HORROR_API AGunBaseClass : public AActor
 {
@@ -27,6 +28,8 @@ public:
 	bool CanReload() const;
 
 	int GetCurrentBulletCount() const;
+
+	int GetTotalBulletCount() const;
 
 	void Reload();
 protected:
@@ -74,9 +77,11 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
 		UParticleSystem* MuzzleEffect;
 
+	/*Effect for when objects are hit*/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
 		UParticleSystem* ImpactEffect;
 
+	/*Effect for when bodies are hit*/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
 		UParticleSystem* FleshImpactEffect;
 
@@ -87,16 +92,26 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon", meta = (ClampMin = 0.f))
 		float BulletSpread = 5;
 
+
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
 		FName TracerTargetName;
 
+	/*Guns Range for Dmg to be applied*/
 	UPROPERTY(EditDefaultsOnly, Category = "Sight")
 		float SightRange = 1000;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
 		int MagazineSize = 30;
 
-	int CurrentBulletCount;
+	/*Weapons Max Ammo Capacity excluding clip*/
+	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+		int MaxAmmoAmount = 100;
+
+	/*Weapons Current Ammo amount excluding current clip*/
+	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+	int AmmoAmount;
+
+	int CurrentClipBulletCount;
 
 	FTimerHandle TimerHandle_ReloadTime;
 

@@ -24,7 +24,7 @@ AGunBaseClass::AGunBaseClass()
 
 	RateOfFire = 600;
 
-	CurrentBulletCount = MagazineSize;
+	CurrentClipBulletCount = MagazineSize;
 }
 
 // Called when the game starts or when spawned
@@ -61,7 +61,12 @@ void AGunBaseClass::Reloaded()
 {
 	bCanReload = false;
 	bIsReloading = false;
-	CurrentBulletCount = MagazineSize;
+	if (AmmoAmount > 0)
+	{
+		//TODO double check to make sure this works properly
+		AmmoAmount -= FMath::Clamp((MagazineSize - CurrentClipBulletCount), 0, AmmoAmount);
+		CurrentClipBulletCount = MagazineSize;
+	}
 }
 
 
@@ -71,7 +76,12 @@ bool AGunBaseClass::CanReload() const
 }
 int AGunBaseClass::GetCurrentBulletCount() const
 {
-	return CurrentBulletCount;
+	return CurrentClipBulletCount;
+}
+
+int AGunBaseClass::GetTotalBulletCount() const
+{
+	return AmmoAmount;
 }
 
 
@@ -81,7 +91,7 @@ int AGunBaseClass::GetCurrentBulletCount() const
 
 void AGunBaseClass::StartFire()
 {
-	if (CurrentBulletCount <= 0)
+	if (CurrentClipBulletCount <= 0)
 		return;
 
 

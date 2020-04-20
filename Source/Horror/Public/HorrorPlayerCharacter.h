@@ -8,6 +8,7 @@
 
 class USpringArmComponent;
 class UCameraComponent;
+class AGunBaseClass;
 UCLASS()
 class HORROR_API AHorrorPlayerCharacter : public ACharacter
 {
@@ -16,7 +17,6 @@ class HORROR_API AHorrorPlayerCharacter : public ACharacter
 public:
 	// Sets default values for this character's properties
 	AHorrorPlayerCharacter();
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -60,6 +60,8 @@ protected:
 
 	UFUNCTION(BlueprintCallable, Category = "Player")
 		void Reload();
+
+	AGunBaseClass* CurrentWeapon;
 
 public:	
 	// Called every frame
