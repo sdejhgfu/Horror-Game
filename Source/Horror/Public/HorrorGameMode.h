@@ -6,6 +6,11 @@
 #include "GameFramework/GameModeBase.h"
 #include "HorrorGameMode.generated.h"
 
+
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnActorKilled,AActor*, VictimActor,AActor*, KillerActor,AController*, KillerController);
+
+
 /**
  * 
  */
@@ -14,4 +19,8 @@ class HORROR_API AHorrorGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 	
+
+public:
+	UPROPERTY(BlueprintAssignable, Category = "GameMode")
+		FOnActorKilled OnActorKilled;
 };
