@@ -60,7 +60,7 @@ protected:
 		TSubclassOf<UCameraShake> FireCamShake;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Gun")
-		USkeletalMeshComponent*	MeshComp;
+		UStaticMeshComponent*	MeshComp;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
 		float BaseDamage = 20;

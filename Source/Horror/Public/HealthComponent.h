@@ -37,10 +37,10 @@ protected:
 	UFUNCTION()
 		void HandleDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBody, AActor* DamageCauser);
 
-	UPROPERTY(BlueprintReadOnly, Category = "Health Component")
+	UPROPERTY(EditDefaultsOnly, Category = "Health Component")
 		float Health = 100;
 
-	UPROPERTY(BlueprintReadOnly, Category = "Health Component")
+	UPROPERTY(EditDefaultsOnly, Category = "Health Component")
 		float MaxHealth = 100;
 
 	UFUNCTION(BlueprintCallable, Category = "Health Component")

@@ -11,6 +11,8 @@
 #include "Engine/World.h"
 #include "..\Public\HorrorPlayerCharacter.h"
 #include "Guns/GunBaseClass.h"
+#include "Horror.h"
+#include "Public/HealthComponent.h"
 
 // Sets default values
 AHorrorPlayerCharacter::AHorrorPlayerCharacter()
@@ -27,10 +29,16 @@ AHorrorPlayerCharacter::AHorrorPlayerCharacter()
 	Camera = CreateDefaultSubobject<UCameraComponent>("Camera");
 	Camera->SetupAttachment(SpringArmComp);
 
-	
+	HealthComponent = CreateDefaultSubobject<UHealthComponent>("Health Component");
 
+	Tags.Add("Player");
+	
 	ZoomedFOV = 65.f;
 	ZoomInterpSpeed = 20.f;
+
+	GetCapsuleComponent()->SetCollisionResponseToChannel(COLLISION_WEAPON, ECR_Ignore);
+
+//	WeaponAttachSocketName = "WeaponSocket";
 }
 
 // Called when the game starts or when spawned
@@ -38,6 +46,20 @@ void AHorrorPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	DefaultFOV = Camera->FieldOfView;
+	//add 
+	
+	////Spawn Weapon
+	//FActorSpawnParameters SpawnGunParams;
+	//SpawnGunParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	//CurrentWeapon = GetWorld()->SpawnActor<AGunBaseClass>(StartingWeapon, FVector::ZeroVector, FRotator::ZeroRotator, SpawnGunParams);
+
+
+
+	//if (CurrentWeapon)
+	//{
+	//	CurrentWeapon->SetOwner(this);
+	//	CurrentWeapon->AttachToComponent(Cast<USceneComponent>(GetMesh()), FAttachmentTransformRules::SnapToTargetNotIncludingScale, WeaponAttachSocketName);
+	//}
 }
 
 // Called every frame
@@ -127,15 +149,29 @@ void AHorrorPlayerCharacter::EndZoom()
 	bWantsToZoom = false;
 }
 
+#pragma endregion
+
+#pragma region Attacking
+
 void AHorrorPlayerCharacter::StartAttack()
 {
+	//Check to see if player is using a gun or a melee
+	if (CurrentWeapon)
+	{
+		CurrentWeapon->StartFire();
+	}
 }
 
 void AHorrorPlayerCharacter::StopAttack()
 {
+	if (CurrentWeapon)
+	{
+		CurrentWeapon->StopFire();
+	}
 }
 
 #pragma endregion
+
 
 int AHorrorPlayerCharacter::GetBulletCount() const
 {

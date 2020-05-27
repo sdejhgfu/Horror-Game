@@ -9,6 +9,7 @@
 class USpringArmComponent;
 class UCameraComponent;
 class AGunBaseClass;
+class UHealthComponent;
 UCLASS()
 class HORROR_API AHorrorPlayerCharacter : public ACharacter
 {
@@ -41,6 +42,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Player", meta = (ClampMin = 0.1f, ClampMax = 100))
 		float ZoomInterpSpeed = 20.f;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Health")
+		UHealthComponent* HealthComponent;
+
 	float DefaultFOV;
 
 	bool bWantsToZoom;
@@ -63,6 +67,14 @@ protected:
 
 	AGunBaseClass* CurrentWeapon;
 
+	UPROPERTY(VisibleDefaultsOnly, Category = "Player")
+		FName WeaponAttachSocketName;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Player")
+		TSubclassOf<AGunBaseClass> StartingWeapon;
+
+	//TODO: Implement function for hiding
+	bool Hiding;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

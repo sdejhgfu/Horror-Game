@@ -9,6 +9,7 @@
 #include "Particles/ParticleSystemComponent.h"
 #include "PhysicalMaterials/PhysicalMaterial.h"
 #include "Engine/Public/TimerManager.h"
+#include "Components/StaticMeshComponent.h"
 
 // Sets default values
 AGunBaseClass::AGunBaseClass()
@@ -16,9 +17,8 @@ AGunBaseClass::AGunBaseClass()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	MeshComp = CreateDefaultSubobject<USkeletalMeshComponent>("Mesh Comp");
+	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>("Mesh Comp");
 	RootComponent = MeshComp;
-
 	MuzzleSocketName = "MuzzleSocket";
 	TracerTargetName = "Target";
 
